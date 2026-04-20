@@ -616,6 +616,11 @@ public class AiServicesProcessor {
                 if (!ci.isInterface()) {
                     return;
                 }
+                // Skip framework-internal interfaces from the langchain4j library itself
+                // (e.g. UntypedAgent) — these are not user-defined agent services
+                if (ci.name().toString().startsWith("dev.langchain4j.")) {
+                    return;
+                }
                 impliedDefaultRegisterAiService.add(AnnotationInstance.builder(REGISTER_AI_SERVICES).buildWithTarget(ci));
             });
         }

@@ -13,6 +13,8 @@
   <name>Quarkus LangChain4j - Parent</name>
   <modules>
     <module>agentic</module>
+    <module>agentic-persistence</module>
+    <module>agentic-persistence-stores</module>
     <module>core</module>
     <module>embedding-stores</module>
     <module>mcp</module>

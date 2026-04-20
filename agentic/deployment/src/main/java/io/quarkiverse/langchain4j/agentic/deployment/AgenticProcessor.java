@@ -468,6 +468,11 @@ public class AgenticProcessor {
             MethodInfo methodInfo = ai.target().asMethod();
             if (methodInfo.declaringClass().isInterface()) {
                 ClassInfo iface = methodInfo.declaringClass();
+                // Skip framework-internal interfaces from the langchain4j library itself
+                // (e.g. UntypedAgent) — these are not user-defined agent services
+                if (iface.name().toString().startsWith("dev.langchain4j.")) {
+                    continue;
+                }
                 addMethodToMap(methodInfo, iface, ifaceToAgentMethodsMap);
                 index.getAllKnownSubinterfaces(iface.name())
                         .forEach(i -> addMethodToMap(methodInfo, i, ifaceToAgentMethodsMap));
